@@ -1,0 +1,8 @@
+# Compiled binaries
+todo
+todo.exe
+*.o
+*.out
+
+# Your personal saved tasks
+tasks.txt
