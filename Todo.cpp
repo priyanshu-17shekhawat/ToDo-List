@@ -12,6 +12,7 @@ struct Task {
 };
 
 const string FILE_NAME = "tasks.txt";
+
 void loadTasks(vector<Task> &tasks) {
     ifstream in(FILE_NAME);
     string line;
@@ -54,6 +55,7 @@ void addTask(vector<Task> &tasks) {
     tasks.push_back({title, false});
     cout << "Task added.\n";
 }
+
 int askTaskIndex(const vector<Task> &tasks) {
     cout << "Enter task number: ";
     int n;
@@ -77,6 +79,23 @@ void markDone(vector<Task> &tasks) {
     cout << "Marked as done.\n";
 }
 
+void editTask(vector<Task> &tasks) {
+    int idx = askTaskIndex(tasks);
+    if (idx == -1) {
+        cout << "Invalid task number.\n";
+        return;
+    }
+    cout << "New title: ";
+    string title;
+    getline(cin, title);
+    if (title.empty()) {
+        cout << "Title cannot be empty.\n";
+        return;
+    }
+    tasks[idx].title = title;
+    cout << "Task updated.\n";
+}
+
 void deleteTask(vector<Task> &tasks) {
     int idx = askTaskIndex(tasks);
     if (idx == -1) {
@@ -97,7 +116,8 @@ int main() {
              << "2. View tasks\n"
              << "3. Mark task as done\n"
              << "4. Delete task\n"
-             << "5. Exit\n"
+             << "5. Edit task\n"
+             << "6. Exit\n"
              << "Choose: ";
 
         int choice;
@@ -114,7 +134,8 @@ int main() {
             case 2: showTasks(tasks); break;
             case 3: markDone(tasks); break;
             case 4: deleteTask(tasks); break;
-            case 5:
+            case 5: editTask(tasks); break;
+            case 6:
                 saveTasks(tasks);
                 cout << "Saved. Bye!\n";
                 return 0;
